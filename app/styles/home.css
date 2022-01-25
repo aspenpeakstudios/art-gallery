@@ -1,0 +1,145 @@
+body { 
+    overflow-x: hidden;
+}
+
+.welcome {  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 20rem;    
+}
+
+.welcome h1 { 
+  font-family: 'Oswald', sans-serif;
+  font-size: 4rem;
+  margin-bottom: 2rem;
+}
+
+.welcome h2 {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+/* 
+    Masonary with Horizontal 
+    https://css-tricks.com/piecing-together-approaches-for-a-css-masonry-layout/
+    https://philipwalton.github.io/solved-by-flexbox/
+    https://coryrylan.com/blog/css-gap-space-with-flexbox
+*/
+.masonry-with-columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-left: -20px;
+    margin-right: -20px;
+    overflow-x:hidden;
+
+    background-color: #f3f3f3;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.masonry-with-columns div {
+    border-radius: 0px;
+    min-width: 250px;
+    height: 350px;
+    line-height: 150px;
+    background: #EC985A;
+    color: white;
+    /* margin: 0 1rem 1rem 0; */
+    text-align: center;
+    font-family: system-ui;
+    font-weight: 900;
+    font-size: 2rem;
+    flex: 1 0 auto;
+    /* margin-bottom: 10px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+    background-size: cover;
+    /* box-shadow: 1px 1px 2px 2px #999; */
+
+    transform: skewX(-4deg);
+}
+
+/* Row 1 - 30/70 */
+.masonry-with-columns div:nth-child(1) {
+    width: calc(100% / 7);
+    min-width: calc(30%);
+}
+.masonry-with-columns div:nth-child(2) {
+    width: calc(100% / 3);
+    min-width: calc(60%);
+}
+/* Row 2  - 70/30 */
+.masonry-with-columns div:nth-child(3) {
+    width: calc(100% / 3);
+    min-width: calc(60%);
+}
+.masonry-with-columns div:nth-child(4) {
+    width: calc(100% / 7);
+    min-width: calc(30%);
+}
+/* Row 3 - 50/50 */
+.masonry-with-columns div:nth-child(5) {
+    width: calc(100% / 5);
+    min-width: calc(45%);
+}
+.masonry-with-columns div:nth-child(6) {
+    width: calc(100% / 5);
+    min-width: calc(45%);
+}
+/* Row 4 - 30/70 */
+.masonry-with-columns div:nth-child(7) {
+    width: calc(100% / 7);
+    min-width: calc(30%);
+}
+.masonry-with-columns div:nth-child(8) {
+    width: calc(100% / 3);
+    min-width: calc(60%);
+}
+/* Row 5 - 50/50 */
+.masonry-with-columns div:nth-child(9) {
+    width: calc(100% / 5);
+    min-width: calc(45%);
+}
+.masonry-with-columns div:nth-child(10) {
+    width: calc(100% / 5);
+    min-width: calc(45%);
+}
+/* Row 6 - 70 / 30 */
+.masonry-with-columns div:nth-child(11) {
+    width: calc(100% / 7);
+    min-width: calc(30%);
+}
+.masonry-with-columns div:nth-child(12) {
+    width: calc(100% / 3);
+    min-width: calc(60%);
+}
+/* Row 7 - 50/25/25 */
+.masonry-with-columns div:nth-child(13) {
+    width: calc(30%);
+}
+.masonry-with-columns div:nth-child(14) {
+    width: calc(30%);
+}
+.masonry-with-columns div:nth-child(15) {
+    width: calc(30%);
+}
+/* Row 8 - 100 */
+.masonry-with-columns div:nth-child(16) {
+    width: calc(100%);
+}
+
+
+.masonry-with-columns div.item {
+    background: url('/../images/mountains.jpg');
+    background-size: cover;
+}
+
+.masonry-with-columns a {
+    width: 100%;
+    height: 100%;
+}
