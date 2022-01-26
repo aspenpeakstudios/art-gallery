@@ -1,5 +1,5 @@
 import { GalleryItem } from "@prisma/client";
-import { Link } from "remix";
+import { Link, useNavigate } from "remix";
 
 
 //https://res.cloudinary.com/drvcbv6ec/image/upload/q_auto,f_auto/v1643161406/gallery-items/lightrun_zltc8o.jpg
@@ -20,11 +20,18 @@ const imageArray = [
 ]
 
 export default function ImageGrid(props: any) {
+    let navigate = useNavigate();
+    
     let { items } = props;
     console.log(items);     
     if (items === null || items === undefined) {
       items = imageArray
     }
+
+    function handleClick(e: any) {      
+        const id = e.currentTarget.getAttribute('data-id');
+        navigate(`/admin/edit/item/${id}`, {replace: true})
+      }
 
     return (       
         <section className='masonry-with-columns'>
@@ -33,9 +40,20 @@ export default function ImageGrid(props: any) {
                 <div className="item" key={item.id} 
                     // style={{background: `center / contain no-repeat url(${item.coverImageUrl})`}}>
                     style={{background: `url(${item.coverImageUrl}) top left / cover`}}>
-                    <Link to={`/admin/edit/item/${item.id}`} >
-                    {/* {item.id} */}
-                    </Link>
+
+                    {/*  */}
+
+                    <div className="overlay" data-id={item.id} onClick={handleClick}>                                          
+                        <span>{item.name}</span>
+                        {/* <div className="button-container">
+                            <button data-id={item.id} onClick={handleClick}>
+                                View
+                            </button>
+                            <button data-id={item.id} onClick={handleClick}>
+                                Edit
+                            </button>                            
+                        </div> */}
+                    </div>                        
                 </div>
                     
             ))}

@@ -67,6 +67,8 @@ export default function GalleryItemRoute() {
     return (        
         <div className="form-container">
             <div className="header">
+              <Link to="/">Back</Link>
+
               <h2>Editing Gallery Item "{item.name}"</h2>
             </div>
             
