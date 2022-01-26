@@ -1,0 +1,50 @@
+.form-container {
+    background-color: #efefef;
+    font-family: Oswald, sans-serif;
+}
+
+.header { 
+    box-shadow: 0 0 4px #444; 
+    background-color: white;
+}
+
+h2 {
+    text-align:center;
+    vertical-align:middle;
+    margin-top:0px; /* need this to clear the default margin */
+    margin-bottom:0px;  
+    line-height:4em;
+}
+
+form {
+    font-family: Oswald, sans-serif;
+}
+
+.form-field {
+    margin: 20px; 
+}
+
+input, textarea, select { 
+    width: 100%;    
+    padding: 5px 10px;
+    /* border-radius: 3px; */
+    /* color: gray; */
+    border-color: #ccc;
+    border-width: 1px;
+    margin: 5px 0px;
+    font-size: 0.9em;
+    color: #777;
+    font-family: "Roboto Condensed", sans-serif
+}
+
+input:focus-visible, textarea:focus-visible {
+    border-color: #aaa;
+    border-width: 1px;
+    outline-offset: inherit;
+    outline: none;
+    background-color: rgb(247, 247, 247);
+}
+
+img {
+    max-height: 300px;
+}

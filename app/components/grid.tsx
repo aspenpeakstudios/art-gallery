@@ -1,55 +1,44 @@
+import { GalleryItem } from "@prisma/client";
 import { Link } from "remix";
 
+
+//https://res.cloudinary.com/drvcbv6ec/image/upload/q_auto,f_auto/v1643161406/gallery-items/lightrun_zltc8o.jpg
+//https://res.cloudinary.com/drvcbv6ec/image/upload/v1643161406/gallery-items/lightrun_zltc8o.jpg
+
 const imageArray = [
-    { id: 1, url: "/../images/mountains.jpg", name: "Mountains 1" },
-    { id: 2, url: "/../images/mountains.jpg", name: "Mountains 2" },
-    { id: 3, url: "/../images/mountains.jpg", name: "Mountains 3" },
-    { id: 4, url: "/../images/mountains.jpg", name: "Mountains 4" },
-    { id: 5, url: "/../images/mountains.jpg", name: "Mountains 5" },
-    { id: 6, url: "/../images/mountains.jpg", name: "Mountains 6" },
-    { id: 7, url: "/../images/mountains.jpg", name: "Mountains 7" },
-    { id: 8, url: "/../images/mountains.jpg", name: "Mountains 8" },
-    { id: 9, url: "/../images/mountains.jpg", name: "Mountains 9" },
-    { id: 10, url: "/../images/mountains.jpg", name: "Mountains 10" }    
+    { id: 1, coverImageUrl: "/../images/mountains.jpg", name: "Whitefish Ski Resort" },    
+    // { id: 2, coverImageUrl: "/../images/ramp.jpg", name: "Glacier National Park 2" },  
+    { id: 3, coverImageUrl: "/../images/lightrun.jpg", name: "Whitefish Ski Resort" },
+    { id: 4, coverImageUrl: "/../images/badlands.jpg", name: "Badlands" },      
+    
+    // { id: 5, coverImageUrl: "/../images/mountains.jpg", name: "Mountains 5" },
+    // { id: 6, coverImageUrl: "/../images/mountains.jpg", name: "Mountains 6" },
+    // { id: 7, coverImageUrl: "/../images/mountains.jpg", name: "Mountains 7" },
+    // { id: 8, coverImageUrl: "/../images/mountains.jpg", name: "Mountains 8" },
+    // { id: 9, coverImageUrl: "/../images/mountains.jpg", name: "Mountains 9" },
+    // { id: 10, coverImageUrl: "/../images/mountains.jpg", name: "Mountains 10" }    
 ]
 
-export default function ImageGrid() {
-    console.log(imageArray);
+export default function ImageGrid(props: any) {
+    let { items } = props;
+    console.log(items);     
+    if (items === null || items === undefined) {
+      items = imageArray
+    }
+
     return (       
         <section className='masonry-with-columns'>
-            {imageArray.map(item => (
+            {items.map( (item: GalleryItem) => (                
                 // <div className="item">2</div>                        
-                <div className="item" key={item.id}>
+                <div className="item" key={item.id} 
+                    // style={{background: `center / contain no-repeat url(${item.coverImageUrl})`}}>
+                    style={{background: `url(${item.coverImageUrl}) top left / cover`}}>
                     <Link to={`/admin/edit/item/${item.id}`} >
                     {/* {item.id} */}
                     </Link>
                 </div>
                     
             ))}
-
-            {/* <div className="item">1</div>
-            <div className="item">2</div>
-
-            <div className="item">3</div>
-            <div className="item">4</div>
-
-            <div className="item">5</div>
-            <div className="item">6</div>
-
-            <div className="item">7</div>
-            <div className="item">8</div>
-
-            <div className="item">9</div>
-            <div className="item">10</div>
-
-            <div className="item">11</div>
-            <div className="item">12</div>
-
-            <div className="item">13</div>
-            <div className="item">14</div>
-            <div className="item">15</div>
-
-            <div className="item">16</div> */}
         </section>
     );
 }

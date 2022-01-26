@@ -27,22 +27,25 @@ body {
     https://philipwalton.github.io/solved-by-flexbox/
     https://coryrylan.com/blog/css-gap-space-with-flexbox
 */
+:root {
+    --grid-gap: 10px;
+}
 .masonry-with-columns {
     display: flex;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: var(--grid-gap);
     margin-left: -20px;
     margin-right: -20px;
     overflow-x:hidden;
 
     background-color: #f3f3f3;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top:var(--grid-gap);
+    padding-bottom: var(--grid-gap);
 }
 .masonry-with-columns div {
     border-radius: 0px;
     min-width: 250px;
-    height: 350px;
+    height: 450px;
     line-height: 150px;
     background: #EC985A;
     color: white;
@@ -135,7 +138,7 @@ body {
 
 
 .masonry-with-columns div.item {
-    background: url('/../images/mountains.jpg');
+    /* background: url('/../images/mountains.jpg'); */
     background-size: cover;
 }
 

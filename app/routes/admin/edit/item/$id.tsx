@@ -1,7 +1,13 @@
-import type { ActionFunction, LoaderFunction, MetaFunction } from "remix";
+import { GalleryItem } from "@prisma/client";
+import type { ActionFunction, LinksFunction, LoaderFunction, MetaFunction } from "remix";
 import { Link, useLoaderData, useCatch, redirect, useParams } from "remix";
 import Footer from "~/components/footer";
+import { getGalleryItem } from "~/utils/galleryItems";
+import formStyles from "~/styles/forms.css";
 
+export const links: LinksFunction = () => {
+    return [{ rel: "stylesheet", href: formStyles}];
+  };
 
 // SEO
 export const meta: MetaFunction = ({ data }: { data: LoaderData | undefined; }) => {
@@ -12,14 +18,16 @@ export const meta: MetaFunction = ({ data }: { data: LoaderData | undefined; }) 
     };
   }
   return {
-    title: `Editing Gallery Item "${data}"`,
-    description: `Editing Gallery Item ${data}`
+    title: `Editing Gallery Item "${data.item.name}"`,
+    description: `Editing Gallery Item ${data.item.name}`
   };
 };
 
 
 // TYPES
-type LoaderData = { id: string | undefined };
+type LoaderData = { 
+  id: string,
+  item: GalleryItem };
 
 
 // LOAD DATA
@@ -30,25 +38,85 @@ export const loader: LoaderFunction = async ({
 }) => {
     console.log("GalleryItem Loader: ", params);
 
-    return params.id;
+    const id = params.id || "";
+    const galleryItem = await getGalleryItem(id);
+    console.log("GalleryItem: ", galleryItem);
+
+    const data: LoaderData = { id: id, item: galleryItem }
+
+    return data;
 }
 
 
 // HTML
 export default function GalleryItemRoute() {
-    const data = useLoaderData(); 
+
+    function onChange(e: any) {
+      console.log("Value Changed", e);
+    }
+
+    const {item} = useLoaderData(); 
     
     //const hasData = data?.id == null || data?.id == undefined;
-    console.log("GalleryItem Data: ", data);
+    console.log("GalleryItem Data: ", item);
 
-    if (!data) {
+    if (!item) {
         return <div> No Gallery Item Found </div>
     }
 
     return (        
-        <div>
-            <h2>Admin \ Edit \ Item</h2>
-            <p>Gallery Item {data}</p>
+        <div className="form-container">
+            <div className="header">
+              <h2>Editing Gallery Item "{item.name}"</h2>
+            </div>
+            
+            {/* <p>Gallery Item {data.id}</p> */}
+            <form>
+              {/* NAME */}
+              <div className="form-field">
+                <label>Name</label>
+                <input type="text" value={item.name} onChange={onChange} />
+              </div>
+
+              {/* IS ACTIVE */}
+              <div className="form-field">
+                <label>Is Active - (Show or Hide from Homepage)</label>                
+                <select value={item.isActive}  onChange={onChange}>                  
+                  <option value="true">Yes</option>                  
+                  <option value="false">No</option>                  
+                </select>                 
+              </div>  
+
+              {/* DESCRIPTION */}
+              <div className="form-field">
+              <label>Description</label>
+              <textarea value={item.description} onChange={onChange}></textarea>
+              </div>
+
+              {/* AVAILABILITY */}
+              <div className="form-field">
+                <label>Availability - (For Sale, Sold, Not For Sale)</label>
+                <select value={item.availability}  onChange={onChange}>                  
+                  <option value="For Sale">For Sale</option>                  
+                  <option value="Sold">Sold</option>
+                  <option value="Not For Sale">Not For Sale</option>
+                </select>                
+              </div>  
+
+              {/* TAGS */}
+              <div className="form-field">
+                <label>Tags - (comma separated)</label>
+                <input type="text" value={item.tags} onChange={onChange} />
+              </div>
+
+              {/* COVER IMAGE */}
+              <div className="form-field">
+                <label>Cover Image</label>
+                <img src={item.coverImageUrl} />
+                <label>Cloud URL</label>
+                <input type="text" value={item.coverImageUrl} onChange={onChange} />
+              </div>
+            </form>
             <Footer />
         </div>
     );

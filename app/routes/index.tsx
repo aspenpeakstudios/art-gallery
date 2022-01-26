@@ -1,7 +1,9 @@
-import { Link, LinksFunction, MetaFunction } from "remix";
+import { Link, LinksFunction, MetaFunction, useLoaderData } from "remix";
 import Footer from "~/components/footer";
 import ImageGrid from "~/components/grid";
 import Welcome from "~/components/welcome";
+import { GalleryItem } from "@prisma/client";
+import { getGalleryItems } from "~/utils/galleryItems";
 import homeStyles from "../styles/home.css";
 
 // STYLES
@@ -19,7 +21,15 @@ export const meta: MetaFunction = () => {
 };
 
 
+// LOADER
+export const loader = () => {
+  return getGalleryItems();
+}
+
+
 export default function Index() {
+  const galleryItems: GalleryItem[] = useLoaderData();
+
   return (
     <div>
       
@@ -27,7 +37,7 @@ export default function Index() {
       <Welcome />
 
       {/* GRID OF ART  */}
-      <ImageGrid />      
+      <ImageGrid items={galleryItems} />      
       
       {/* FOOTER */}
       <Footer />
