@@ -1,6 +1,11 @@
-.form-container {
+.container {
     background-color: #efefef;
-    font-family: Oswald, sans-serif;
+    font-family: Oswald, sans-serif;    
+}
+
+.form-container { 
+    /* display: flex;
+    justify-content: center; */
 }
 
 .header { 
@@ -18,6 +23,9 @@ h2 {
 
 form {
     font-family: Oswald, sans-serif;
+    /* max-width: 1000px; */
+    margin: 20px 60px;
+
 }
 
 .form-field {
@@ -42,9 +50,24 @@ input:focus-visible, textarea:focus-visible {
     border-width: 1px;
     outline-offset: inherit;
     outline: none;
-    background-color: rgb(247, 247, 247);
+    /* background-color: rgb(247, 247, 247); */
+    color: black;
 }
 
 img {
     max-height: 300px;
+    transition: 0.3s max-height;
+    /* width:100%; */
+}
+
+.image-container {
+    max-height:300px;
+    transition: 0.3s max-height;
+    overflow-y: hidden;
+}
+
+.hidden {
+    /* display: none; */
+    /* opacity: 0; */
+    max-height: 0;   
 }

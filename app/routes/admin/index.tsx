@@ -42,12 +42,38 @@ export default function AdminRoute() {
     }
 
     return (
+        
         <div>
           <h2>Admin \ Index</h2>      
-          <h2>All Gallery Items</h2>    
-          <div className="table-container">
+          <h2>All Gallery Items - {galleryItems.length}</h2>  
+
+          <div className="grid-container">
+          {galleryItems.map((item, index) => (
+            // Flex container 
+            <div key={item.id} className="gallery-item">
+              {/* Image on Top */}
+              <div className="image-container" style={{background: `url(${item.coverImageUrl}) top left / cover`}}>
+                {/* <img src={item.coverImageUrl} alt={item.description} /> */}
+              </div>
+              {/* Details below */}
+              <div className="details-container">
+                <div className="item-name">{item.name}</div>
+                <div className="item-description">{item.description}</div>
+              </div>
+            </div>
+          ))}
+
+            {/*  Flex container  */}
+            <div className="gallery-item-empty">
+              <span>+</span>
+            </div>
+          </div>
+
+
+          {/* <div className="table-container">
             <table>
               <thead>
+                <tr><th></th><th colSpan={4}><button>Add Gallery Item</button></th></tr>
                 <tr>
                   <th>#</th><th>Image</th><th>Name</th><th>Description</th><th>Is Active</th>
                 </tr>
@@ -68,11 +94,10 @@ export default function AdminRoute() {
                   </tr> 
                 ))}
               </tbody>
-
             </table>
-          </div>
+          </div> */}
 
-          <h2>All Gallery Events</h2>    
+          {/* <h2>All Gallery Events</h2>     */}
 
           <Footer />          
         </div>

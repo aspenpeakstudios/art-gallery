@@ -14,7 +14,7 @@ export default function Footer() {
             <p>Admin</p>
             <ul>
                 <li> <Link to="/admin">Admin</Link> </li>
-                <li> <Link to="/admin/edit/item/123">Edit Item</Link> </li>
+                {/* <li> <Link to="/admin/edit/item/123">Edit Item</Link> </li> */}
                 <li> <Link to="/admin/edit/event/ABC">Edit Event</Link> </li>                
             </ul>
 

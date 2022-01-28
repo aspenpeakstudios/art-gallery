@@ -52,3 +52,67 @@ td.image {
 /* tr:hover td {
     border-color: black;
 } */
+
+
+
+/* GRID STYLES */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 2em;
+  margin:2em;
+  padding:2em;  
+
+  font-family: Oswald, Helvetica, sans-serif; 
+}
+
+.gallery-item {
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;  
+    /* padding:10px; */
+    /* border-radius: 5px; */
+    box-shadow: 0 0 4px #444;
+    /* background-color: beige;      */
+    color: #555;
+    transition: 0.3s ease;
+}
+
+.gallery-item-empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid #aaa; */
+    box-shadow: 0 0 4px #444;
+    font-size:6em;
+    color: #999;
+    transition: 0.3s ease;
+}
+
+.gallery-item:hover, .gallery-item-empty:hover {
+    box-shadow: 0 0 8px #444;
+    color: #333;
+    transform: scale(1.01);
+}
+
+.image-container {
+    height: 200px;
+    overflow-y: hidden;
+    /* object-fit: cover; */
+}
+
+.details-container {
+    padding:2em;
+}
+
+.item-name {
+    font-size: 1.1em;
+}
+
+.item-description {
+    font-family: 'roboto', sans-serif;
+    font-size: 0.9em;
+}
+
+
+

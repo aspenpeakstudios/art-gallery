@@ -18,15 +18,16 @@
     min-width: 100px;
     border: 1px solid #ccc;
     background-color: white;    
-    text-align:center;
-    padding: 5px 10px;   
+    text-align:center;    
     color: black; 
     transition: 0.3s all;
 }
 
 .footer a {
+    display:block;
     text-decoration: none;
-    color: inherit;    
+    color: inherit;  
+    padding: 5px 10px;     
 }
 
 .footer li:hover {

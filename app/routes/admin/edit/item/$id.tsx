@@ -4,6 +4,8 @@ import { Link, useLoaderData, useCatch, redirect, useParams } from "remix";
 import Footer from "~/components/footer";
 import { getGalleryItem } from "~/utils/galleryItems";
 import formStyles from "~/styles/forms.css";
+import useForm from "~/utils/useForm";
+import { useState } from "react";
 
 export const links: LinksFunction = () => {
     return [{ rel: "stylesheet", href: formStyles}];
@@ -50,22 +52,36 @@ export const loader: LoaderFunction = async ({
 
 // HTML
 export default function GalleryItemRoute() {
+  const [showImage, setShowImage] = useState(true);
+  
+  // Get Data
+  const {item} = useLoaderData();   
+  if (!item) {
+      return <div> No Gallery Item Found </div>
+  }
+
+  // Handle Form Data
+  const { inputs, handleChange } = useForm({
+    name: item.name,
+    description: item.description,
+    isActive: item.isActive,
+    availability: item.availability,
+    tags: item.tags,
+    coverImageUrl: item.coverImageUrl
+  });
 
     function onChange(e: any) {
       console.log("Value Changed", e);
     }
-
-    const {item} = useLoaderData(); 
-    
-    //const hasData = data?.id == null || data?.id == undefined;
-    console.log("GalleryItem Data: ", item);
-
-    if (!item) {
-        return <div> No Gallery Item Found </div>
-    }
+   
+    const toggleVisibility = () => setShowImage(!showImage)
+    // function toggleVisibility(e: any) {
+    //   console.log("Value Changed", e);
+    //   const id = e.currentTarget.getAttribute('data-target');
+    // }
 
     return (        
-        <div className="form-container">
+        <div className="container">
             <div className="header">
               <Link to="/">Back</Link>
 
@@ -73,52 +89,105 @@ export default function GalleryItemRoute() {
             </div>
             
             {/* <p>Gallery Item {data.id}</p> */}
-            <form>
-              {/* NAME */}
-              <div className="form-field">
-                <label>Name</label>
-                <input type="text" value={item.name} onChange={onChange} />
-              </div>
+            <div className="form-container">
+              <form>
+                <fieldset>
+                  {/* NAME */}
+                  <div className="form-field">
+                    <label htmlFor="name">
+                      Name
+                      <input 
+                        type="text" 
+                        id="name"
+                        name="name"
+                        placeholder="Name"
+                        value={inputs.name} 
+                        onChange={handleChange} />
+                    </label>
+                  </div>
 
-              {/* IS ACTIVE */}
-              <div className="form-field">
-                <label>Is Active - (Show or Hide from Homepage)</label>                
-                <select value={item.isActive}  onChange={onChange}>                  
-                  <option value="true">Yes</option>                  
-                  <option value="false">No</option>                  
-                </select>                 
-              </div>  
+                  {/* IS ACTIVE */}
+                  <div className="form-field">
+                    <label>
+                      Is Active - (Show or Hide from Homepage)
+                      <select 
+                        id="isActive"
+                        name="isActive"
+                        value={inputs.isActive}  
+                        onChange={handleChange}>                  
+                          <option value="true">Yes</option>                  
+                          <option value="false">No</option>                  
+                      </select>                 
+                    </label>                
+                  </div>  
 
-              {/* DESCRIPTION */}
-              <div className="form-field">
-              <label>Description</label>
-              <textarea value={item.description} onChange={onChange}></textarea>
-              </div>
+                  {/* DESCRIPTION */}
+                  <div className="form-field">
+                  <label>
+                    Description
+                    <textarea 
+                      id="description"
+                      name="description"
+                      placeholder="Enter a description for this gallery item"
+                      value={inputs.description} 
+                      onChange={handleChange}>                      
+                    </textarea>
+                  </label>
+                  </div>
 
-              {/* AVAILABILITY */}
-              <div className="form-field">
-                <label>Availability - (For Sale, Sold, Not For Sale)</label>
-                <select value={item.availability}  onChange={onChange}>                  
-                  <option value="For Sale">For Sale</option>                  
-                  <option value="Sold">Sold</option>
-                  <option value="Not For Sale">Not For Sale</option>
-                </select>                
-              </div>  
+                  {/* AVAILABILITY */}
+                  <div className="form-field">
+                    <label>
+                      Availability - (For Sale, Sold, Not For Sale)
+                      <select 
+                        id="availability"
+                        name="availability"
+                        value={inputs.availability}
+                        onChange={handleChange}>                  
+                          <option value="For Sale">For Sale</option>                  
+                          <option value="Sold">Sold</option>
+                          <option value="Not For Sale">Not For Sale</option>
+                      </select>                
+                    </label>
+                  </div>  
 
-              {/* TAGS */}
-              <div className="form-field">
-                <label>Tags - (comma separated)</label>
-                <input type="text" value={item.tags} onChange={onChange} />
-              </div>
+                  {/* TAGS */}
+                  <div className="form-field">
+                    <label>
+                      Tags - (comma separated)
+                      <input 
+                        type="text" 
+                        id="tags"
+                        name="tags"
+                        value={inputs.tags} 
+                        onChange={handleChange} />
+                    </label>
+                  </div>
 
-              {/* COVER IMAGE */}
-              <div className="form-field">
-                <label>Cover Image</label>
-                <img src={item.coverImageUrl} />
-                <label>Cloud URL</label>
-                <input type="text" value={item.coverImageUrl} onChange={onChange} />
-              </div>
-            </form>
+                  {/* COVER IMAGE */}
+                  <div className="form-field">
+
+                    <label onClick={toggleVisibility} data-target="coverImage">Cover Image</label>                                       
+                    <div className={showImage ? 'image-container' : 'image-container hidden'}>
+                      <img 
+                        id="coverImage"                       
+                        src={inputs.coverImageUrl} />                     
+                        </div>
+                  </div>
+
+                  <div className="form-field">
+                    <label>
+                      Cloud URL
+                      <textarea 
+                        id="coverImageUrl"
+                        name="coverImageUrl"
+                        value={inputs.coverImageUrl} 
+                        onChange={handleChange} />
+                    </label>                      
+                  </div>
+                </fieldset>
+              </form>
+            </div>
             <Footer />
         </div>
     );
