@@ -61,7 +61,7 @@ export default function GalleryItemRoute() {
   }
 
   // Handle Form Data
-  const { inputs, handleChange } = useForm({
+  const { inputs, dirtyFields, handleChange, handleBlur } = useForm({
     name: item.name,
     description: item.description,
     isActive: item.isActive,
@@ -70,11 +70,21 @@ export default function GalleryItemRoute() {
     coverImageUrl: item.coverImageUrl
   });
 
-    function onChange(e: any) {
-      console.log("Value Changed", e);
-    }
+    // function onChange(e: any) {
+    //   console.log("Value Changed", e);
+    // }
    
-    const toggleVisibility = () => setShowImage(!showImage)
+    const toggleVisibility = () => setShowImage(!showImage);
+
+    // function hasChanged(field) {
+    //   if (isDirty(field) == true)
+    //   {
+    //     console.log("Field Changed: ", field);
+    //     return true;
+    //   }
+    //   return false;
+    // }
+
     // function toggleVisibility(e: any) {
     //   console.log("Value Changed", e);
     //   const id = e.currentTarget.getAttribute('data-target');
@@ -95,15 +105,18 @@ export default function GalleryItemRoute() {
                   {/* NAME */}
                   <div className="form-field">
                     <label htmlFor="name">
-                      Name
+                      Name 
                       <input 
                         type="text" 
                         id="name"
                         name="name"
                         placeholder="Name"
                         value={inputs.name} 
+                        onBlur={handleBlur}
                         onChange={handleChange} />
                     </label>
+                    {dirtyFields["name"] ? <span>Field has changed</span> : ''}
+                    {/* {hasChanged("name") ? <span>Field has Changed</span> : <span>Field has Not Changed </span> } */}
                   </div>
 
                   {/* IS ACTIVE */}
@@ -130,6 +143,7 @@ export default function GalleryItemRoute() {
                       name="description"
                       placeholder="Enter a description for this gallery item"
                       value={inputs.description} 
+                      onBlur={handleBlur}
                       onChange={handleChange}>                      
                     </textarea>
                   </label>
